@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View} from 'react-native';
+import {Platform, StyleSheet, Text, View, Dimensions} from 'react-native';
 import { Button, BottomNavigation } from 'react-native-material-ui';
+import {
+  LineChart,
+} from 'react-native-chart-kit'
 
 import Container from './js/components/ViewContainer';
 import withToolbar from './js/components/withToolbar';
@@ -24,6 +27,37 @@ class App extends Component {
       <Container>
         <View style={styles.contentContainer}>
           <Text style={styles.welcome}>글로벌 SW 강좌</Text>
+          <LineChart
+            data={{
+              labels: ['January', 'February', 'March', 'April', 'May', 'June'],
+              datasets: [{
+                data: [
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100,
+                  Math.random() * 100
+                ]
+              }]
+            }}
+            width={Dimensions.get('window').width - 10} // from react-native
+            height={Dimensions.get('window').height / 2}
+            chartConfig={{
+              backgroundColor: '#03a9f4',
+              backgroundGradientFrom: '#03a9f4',
+              backgroundGradientTo: '#03a9f4',
+              color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
+              style: {
+                borderRadius: 16
+              }
+            }}
+            bezier
+            style={{
+              marginVertical: 8,
+              borderRadius: 16
+            }}
+          />
           <Button raised primary text="Primary" />
           <Text style={styles.instructions}>{instructions}</Text>
         </View>
