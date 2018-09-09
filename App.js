@@ -6,8 +6,10 @@ import {
   LineChart,
 } from 'react-native-chart-kit'
 
+import { createStackNavigator } from 'react-navigation';
+
 import Container from './js/components/ViewContainer';
-import withToolbar from './js/components/withToolbar';
+import AppWithToolbar from './AppWithToolbar';
 
 const instructions = Platform.select({
   ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
@@ -17,8 +19,12 @@ const instructions = Platform.select({
 });
 
 class App extends Component {
+  static navigationOptions = {
+    title: '글로벌 SW 강좌',
+  };
   constructor(props) {
     super(props);
+    this.renderItem = this.renderItem.bind(this);
     this.state = {
       active: 'today',
       chartData: [
@@ -66,9 +72,11 @@ class App extends Component {
     }];
   }
   renderItem({ item }) {
+    const { navigation } = this.props;
+
     if(item.type === 'title') {
       return (
-        <Text style={styles.welcome}>글로벌 SW 강좌</Text>
+        <Subheader text="비트코인 시세" />
       );
     }
 
@@ -123,7 +131,7 @@ class App extends Component {
             primaryText: '비트코인 (BCC/BTC)',
             secondaryText: `${Math.random()}`,
           }}
-          rightElement={<Button raised primary text="구매" />}
+          rightElement={<Button raised primary text="구매" onPress={() => navigation.navigate('Toolbar')} />}
           onPress={() => {}}
         />
       );
@@ -167,7 +175,25 @@ class App extends Component {
   }
 }
 
-export default App;
+export default createStackNavigator({
+  Home: {
+    screen: App,
+  },
+  Toolbar: {
+    screen: AppWithToolbar,
+  },
+}, {
+  initialRouteName: 'Home',
+  navigationOptions: {
+    headerStyle: {
+      backgroundColor: '#03a9f4',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  },
+});
 
 const styles = StyleSheet.create({
   welcome: {
