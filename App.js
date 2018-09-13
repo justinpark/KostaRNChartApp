@@ -5,6 +5,8 @@ import { BottomNavigation, ListItem, Subheader, Button } from 'react-native-mate
 import {
   LineChart,
 } from 'react-native-chart-kit'
+import { Provider } from 'react-redux';
+import createStore from './js/configureStore';
 
 import Text from './js/components/Text';
 import ViewContainer from './js/components/ViewContainer';
@@ -32,46 +34,49 @@ class App extends Component {
       name: '이더리움',
       priceFormatted: '6만원',
     }];
+    this.store = createStore();
   }
 
   render() {
     const { navigation } = this.props;
 
     return (
-      <ViewContainer>
+      <Provider store={this.store}>
         <ViewContainer>
-          <Subheader text="코인 시세" />
-          {this.coins.map(({ name, id, priceFormatted }) => (
-            <ListItem
-              key={`coins_${id}`}
-              centerElement={{
-                primaryText: name,
-              }}
-              rightElement={<Button primary raised text="구매" onPress={() => navigation.navigate('BuyModal')} />}
+          <ViewContainer>
+            <Subheader text="코인 시세" />
+            {this.coins.map(({ name, id, priceFormatted }) => (
+              <ListItem
+                key={`coins_${id}`}
+                centerElement={{
+                  primaryText: name,
+                }}
+                rightElement={<Button primary raised text="구매" onPress={() => navigation.navigate('BuyModal')} />}
+              />
+            ))}
+          </ViewContainer>
+          <BottomNavigation active={this.state.active} hidden={false} >
+            <BottomNavigation.Action
+              key="today"
+              icon="today"
+              label="거래소"
+              onPress={() => this.setState({ active: 'today' })}
             />
-          ))}
+            <BottomNavigation.Action
+              key="bookmark-border"
+              icon="bookmark-border"
+              label="입출금"
+              onPress={() => this.setState({ active: 'bookmark-border' })}
+            />
+            <BottomNavigation.Action
+              key="settings"
+              icon="settings"
+              label="설정"
+              onPress={() => this.setState({ active: 'settings' })}
+            />
+          </BottomNavigation>
         </ViewContainer>
-        <BottomNavigation active={this.state.active} hidden={false} >
-          <BottomNavigation.Action
-            key="today"
-            icon="today"
-            label="거래소"
-            onPress={() => this.setState({ active: 'today' })}
-          />
-          <BottomNavigation.Action
-            key="bookmark-border"
-            icon="bookmark-border"
-            label="입출금"
-            onPress={() => this.setState({ active: 'bookmark-border' })}
-          />
-          <BottomNavigation.Action
-            key="settings"
-            icon="settings"
-            label="설정"
-            onPress={() => this.setState({ active: 'settings' })}
-          />
-        </BottomNavigation>
-      </ViewContainer>
+      </Provider>
     );
   }
 }
