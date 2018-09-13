@@ -1,6 +1,7 @@
 const color = {
   primary: '#002930',
   secondary: '#EEEEEE',
+  text: '#999999',
 };
 
 const size = {

@@ -1,15 +1,12 @@
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import React, { Component } from 'react';
 import { PropTypes } from 'prop-types';
+
+import ThemedStyleSheet from '../../ThemedStyleSheet';
 
 const propTypes = {
   children: PropTypes.node.isRequired,
 };
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 class Container extends Component {
   render() {
@@ -24,3 +21,9 @@ class Container extends Component {
 Container.propTypes = propTypes;
 
 export default Container;
+
+const styles = ThemedStyleSheet.create(() => ({
+  container: {
+    flex: 1,
+  },
+}));

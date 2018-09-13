@@ -1,155 +1,52 @@
 import React, {Component} from 'react';
-import {Platform, StyleSheet, Text, View, Dimensions, FlatList} from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 
-import { Button, Avatar, BottomNavigation, ListItem, Subheader } from 'react-native-material-ui';
+import Text from './js/components/Text';
+import { BottomNavigation, ListItem, Subheader } from 'react-native-material-ui';
 import {
   LineChart,
 } from 'react-native-chart-kit'
-
-import { createStackNavigator } from 'react-navigation';
-
-import Container from './js/components/ViewContainer';
-import AppWithToolbar from './AppWithToolbar';
-
-const instructions = Platform.select({
-  ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
-  android:
-    'Double tap R on your keyboard to reload,\n' +
-    'Shake or press menu button for dev menu',
-});
+import ViewContainer from './js/components/ViewContainer';
 
 class App extends Component {
-  static navigationOptions = {
-    title: '글로벌 SW 강좌',
-  };
   constructor(props) {
     super(props);
-    this.renderItem = this.renderItem.bind(this);
     this.state = {
       active: 'today',
-      chartData: [
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100,
-        Math.random() * 100
-      ],
     };
-    this.layout = [{
-      id: 'layout01',
-      type: 'title',
+    this.coins = [{
+      id: 1,
+      code: 'BTX',
+      name: '비트코인',
+      priceFormatted: '30만원',
     }, {
-      id: 'layout02',
-      type: 'chart',
+      id: 2,
+      code: 'RPX',
+      name: '리플',
+      priceFormatted: '4백원',
     }, {
-      id: 'layout03',
-      type: 'button',
-    }, {
-      id: 'layout04',
-      type: 'intro',
-    }, {
-      id: 'layout05',
-      type: 'intro',
-    }, {
-      id: 'layout06',
-      type: 'intro',
-    }, {
-      id: 'layout07',
-      type: 'intro',
-    }, {
-      id: 'layout08',
-      type: 'intro',
-    }, {
-      id: 'layout09',
-      type: 'intro',
-    }, {
-      id: 'layout10',
-      type: 'intro',
-    }, {
-      id: 'layout11',
-      type: 'intro',
+      id: 3,
+      code: 'ETH',
+      name: '이더리움',
+      priceFormatted: '6만원',
     }];
-  }
-  renderItem({ item }) {
-    const { navigation } = this.props;
-
-    if(item.type === 'title') {
-      return (
-        <Subheader text="비트코인 시세" />
-      );
-    }
-
-    if (item.type === 'chart') {
-      return (
-        <LineChart
-          data={{
-            labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-            datasets: [{
-              data: [
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100,
-                Math.random() * 100
-              ]
-            }]
-          }}
-          width={Dimensions.get('window').width - 10} // from react-native
-          height={Dimensions.get('window').height / 2}
-          chartConfig={{
-            backgroundColor: '#03a9f4',
-            backgroundGradientFrom: '#03a9f4',
-            backgroundGradientTo: '#03a9f4',
-            color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-            style: {
-              borderRadius: 16
-            }
-          }}
-          bezier
-          style={{
-            marginVertical: 8,
-            borderRadius: 16
-          }}
-        />
-      );
-    }
-
-    if (item.type === 'button') {
-      return (
-        <Subheader text="매매 현황" />
-      );
-    }
-
-    if (item.type === 'intro') {
-      return (
-        <ListItem
-          divider
-          leftElement={<Avatar text="BCC" />}
-          centerElement={{
-            primaryText: '비트코인 (BCC/BTC)',
-            secondaryText: `${Math.random()}`,
-          }}
-          rightElement={<Button raised primary text="구매" onPress={() => navigation.navigate('Toolbar')} />}
-          onPress={() => {}}
-        />
-      );
-    }
-
-    return null;
   }
 
   render() {
     return (
-      <Container>
-        <View style={styles.contentContainer}>
-          <FlatList
-            data={this.layout}
-            keyExtractor={(item) => item.id}
-            renderItem={this.renderItem}
-          />
-        </View>
+      <ViewContainer>
+        <ViewContainer>
+          <Subheader text="코인 시세" />
+          {this.coins.map(({ name, id, priceFormatted }) => (
+            <ListItem
+              key={`coins_${id}`}
+              centerElement={{
+                primaryText: name,
+              }}
+              rightElement={<Text>{priceFormatted}</Text>}
+            />
+          ))}
+        </ViewContainer>
         <BottomNavigation active={this.state.active} hidden={false} >
           <BottomNavigation.Action
             key="today"
@@ -170,30 +67,12 @@ class App extends Component {
             onPress={() => this.setState({ active: 'settings' })}
           />
         </BottomNavigation>
-      </Container>
+      </ViewContainer>
     );
   }
 }
 
-export default createStackNavigator({
-  Home: {
-    screen: App,
-  },
-  Toolbar: {
-    screen: AppWithToolbar,
-  },
-}, {
-  initialRouteName: 'Home',
-  navigationOptions: {
-    headerStyle: {
-      backgroundColor: '#03a9f4',
-    },
-    headerTintColor: '#fff',
-    headerTitleStyle: {
-      fontWeight: 'bold',
-    },
-  },
-});
+export default App;
 
 const styles = StyleSheet.create({
   welcome: {
