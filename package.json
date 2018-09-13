@@ -17,7 +17,11 @@
     "react-navigation": "^2.13.0",
     "react-redux": "^5.0.7",
     "redux": "^4.0.0",
-    "redux-devtools-extension": "^2.13.5"
+    "redux-devtools-extension": "^2.13.5",
+    "redux-pack": "^0.1.5",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^3.0.1",
+    "selector-action": "^1.1.1"
   },
   "devDependencies": {
     "babel-jest": "23.4.2",

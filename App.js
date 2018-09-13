@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { Platform, StyleSheet } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import { BottomNavigation, ListItem, Subheader, Button } from 'react-native-material-ui';
+import { BottomNavigation, ListItem, Subheader, Button, Avatar } from 'react-native-material-ui';
 import {
   LineChart,
 } from 'react-native-chart-kit'
@@ -11,6 +11,7 @@ import createStore from './js/configureStore';
 import Text from './js/components/Text';
 import ViewContainer from './js/components/ViewContainer';
 import BuyCoinScreen from './js/screens/BuyCoinScreen';
+import CoinFilterContainer from './js/containers/CoinFilterContainer';
 
 class App extends Component {
   constructor(props) {
@@ -44,12 +45,15 @@ class App extends Component {
       <Provider store={this.store}>
         <ViewContainer>
           <ViewContainer>
+            <CoinFilterContainer/>
             <Subheader text="코인 시세" />
-            {this.coins.map(({ name, id, priceFormatted }) => (
+            {this.coins.map(({ name, id, code, priceFormatted }) => (
               <ListItem
                 key={`coins_${id}`}
+                leftElement={<Avatar text={code} />}
                 centerElement={{
                   primaryText: name,
+                  secondaryText: priceFormatted,
                 }}
                 rightElement={<Button primary raised text="구매" onPress={() => navigation.navigate('BuyModal')} />}
               />
