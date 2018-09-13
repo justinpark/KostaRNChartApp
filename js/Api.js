@@ -6,7 +6,7 @@ const Api = process.env.NODE_ENV === 'production'
     timeout: 1000,
   })
   : axios.create({
-    baseURL: 'http://127.0.0.1:4000/',
+    baseURL: 'http://10.0.2.2:4000/',
     timeout: 1000,
   });
 
