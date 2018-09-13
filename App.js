@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
-import { Platform, StyleSheet, View } from 'react-native';
-
-import Text from './js/components/Text';
-import { BottomNavigation, ListItem, Subheader } from 'react-native-material-ui';
+import { Platform, StyleSheet } from 'react-native';
+import { createStackNavigator } from 'react-navigation';
+import { BottomNavigation, ListItem, Subheader, Button } from 'react-native-material-ui';
 import {
   LineChart,
 } from 'react-native-chart-kit'
+
+import Text from './js/components/Text';
 import ViewContainer from './js/components/ViewContainer';
+import BuyCoinScreen from './js/screens/BuyCoinScreen';
 
 class App extends Component {
   constructor(props) {
@@ -33,6 +35,8 @@ class App extends Component {
   }
 
   render() {
+    const { navigation } = this.props;
+
     return (
       <ViewContainer>
         <ViewContainer>
@@ -43,7 +47,7 @@ class App extends Component {
               centerElement={{
                 primaryText: name,
               }}
-              rightElement={<Text>{priceFormatted}</Text>}
+              rightElement={<Button primary raised text="구매" onPress={() => navigation.navigate('BuyModal')} />}
             />
           ))}
         </ViewContainer>
@@ -72,7 +76,25 @@ class App extends Component {
   }
 }
 
-export default App;
+export default createStackNavigator({
+  Home: {
+    screen: App,
+  },
+  BuyModal: {
+    screen: BuyCoinScreen,
+  },
+}, {
+  initialRouteName: 'Home',
+  navigationOptions: {
+    headerStyle: {
+      backgroundColor: '#03a9f4',
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {
+      fontWeight: 'bold',
+    },
+  },
+});
 
 const styles = StyleSheet.create({
   welcome: {
