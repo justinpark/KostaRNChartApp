@@ -13,6 +13,7 @@ import ViewContainer from './js/components/ViewContainer';
 import BuyCoinScreen from './js/screens/BuyCoinScreen';
 import CoinFilterContainer from './js/containers/CoinFilterContainer';
 import HomeScreen from './js/screens/HomeScreen';
+import NavigationProvider from './js/NavigationProvider';
 
 class App extends Component {
   constructor(props) {
@@ -44,29 +45,31 @@ class App extends Component {
 
     return (
       <Provider store={this.store}>
-        <ViewContainer>
-          <HomeScreen />
-          <BottomNavigation active={this.state.active} hidden={false} >
-            <BottomNavigation.Action
-              key="today"
-              icon="today"
-              label="거래소"
-              onPress={() => this.setState({ active: 'today' })}
-            />
-            <BottomNavigation.Action
-              key="bookmark-border"
-              icon="bookmark-border"
-              label="입출금"
-              onPress={() => this.setState({ active: 'bookmark-border' })}
-            />
-            <BottomNavigation.Action
-              key="settings"
-              icon="settings"
-              label="설정"
-              onPress={() => this.setState({ active: 'settings' })}
-            />
-          </BottomNavigation>
-        </ViewContainer>
+        <NavigationProvider navigation={navigation}>
+          <ViewContainer>
+            <HomeScreen />
+            <BottomNavigation active={this.state.active} hidden={false} >
+              <BottomNavigation.Action
+                key="today"
+                icon="today"
+                label="거래소"
+                onPress={() => this.setState({ active: 'today' })}
+              />
+              <BottomNavigation.Action
+                key="bookmark-border"
+                icon="bookmark-border"
+                label="입출금"
+                onPress={() => this.setState({ active: 'bookmark-border' })}
+              />
+              <BottomNavigation.Action
+                key="settings"
+                icon="settings"
+                label="설정"
+                onPress={() => this.setState({ active: 'settings' })}
+              />
+            </BottomNavigation>
+          </ViewContainer>
+        </NavigationProvider>
       </Provider>
     );
   }
