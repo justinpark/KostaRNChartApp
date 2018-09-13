@@ -12,6 +12,7 @@ import Text from './js/components/Text';
 import ViewContainer from './js/components/ViewContainer';
 import BuyCoinScreen from './js/screens/BuyCoinScreen';
 import CoinFilterContainer from './js/containers/CoinFilterContainer';
+import HomeScreen from './js/screens/HomeScreen';
 
 class App extends Component {
   constructor(props) {
@@ -44,21 +45,7 @@ class App extends Component {
     return (
       <Provider store={this.store}>
         <ViewContainer>
-          <ViewContainer>
-            <CoinFilterContainer/>
-            <Subheader text="코인 시세" />
-            {this.coins.map(({ name, id, code, priceFormatted }) => (
-              <ListItem
-                key={`coins_${id}`}
-                leftElement={<Avatar text={code} />}
-                centerElement={{
-                  primaryText: name,
-                  secondaryText: priceFormatted,
-                }}
-                rightElement={<Button primary raised text="구매" onPress={() => navigation.navigate('BuyModal')} />}
-              />
-            ))}
-          </ViewContainer>
+          <HomeScreen />
           <BottomNavigation active={this.state.active} hidden={false} >
             <BottomNavigation.Action
               key="today"

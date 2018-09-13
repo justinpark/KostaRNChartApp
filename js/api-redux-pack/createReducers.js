@@ -92,7 +92,8 @@ export default (...reducerNames) => {
           });
         }
         case FETCH_ALL: {
-          const { data } = payload || {};
+          const { data = [] } = payload || {};
+          console.log('data', data);
           return handle(state, action, {
             start: prevState => ({ ...prevState, isLoading: true }),
             success: prevState => {

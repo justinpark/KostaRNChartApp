@@ -10,7 +10,6 @@ import {
 } from './actionTypes';
 import Api from '../Api';
 
-
 export default (resourceName, key = 'id') => ({
   init: (data) => ({
     type: INIT,
@@ -27,7 +26,9 @@ export default (resourceName, key = 'id') => ({
       : '';
     return {
       type: FETCH_ALL,
-      promise: Api.get(`${resourceName}${qs}`),
+      promise: Api.get(`${resourceName}${qs}`).catch((e) => {
+        console.log(e);
+      }),
       meta: {
         ...params.meta,
         key,

@@ -8,6 +8,7 @@
     "apiserver": "json-server --watch --delay 500 --port 4000 mock/api.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "16.4.1",
     "react-native": "0.56.0",
     "react-native-chart-kit": "^1.1.6",
