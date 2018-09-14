@@ -6,6 +6,7 @@ import {
   CREATE,
   DELETE,
 } from './actionTypes';
+import { INIT_TYPE } from '../middlewares/localStorageEffect';
 
 export default (...reducerNames) => {
   return reducerNames.reduce((apiReducers, name) => ({
@@ -14,6 +15,9 @@ export default (...reducerNames) => {
       const { type, payload, meta } = action;
       const { resourceName, id: entityId, key = 'id' } = meta || {};
 
+      if (type === INIT_TYPE) {
+        return payload[name] || state;
+      }
       if (resourceName !== name) {
         return state;
       }
