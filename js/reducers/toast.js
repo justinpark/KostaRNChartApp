@@ -5,8 +5,6 @@ const initialState = {
   visible: false,
   success: false,
   message: '',
-  stack: {},
-  messageList: [],
 };
 
 export default function(state = initialState, action) {
@@ -19,14 +17,6 @@ export default function(state = initialState, action) {
         visible: true,
         success: true,
         message: toast.onSuccess,
-        messageList: [
-          ...prevState.messageList,
-          key,
-        ],
-        stack: {
-          ...prevState.stack,
-          [key]: message,
-        },
       }),
       failure: prevState => ({
         ...prevState,
@@ -36,11 +26,9 @@ export default function(state = initialState, action) {
       }),
     });
   } else if (type === HIDE_TOAST_MESSAGE) {
-    const { [payload.key]: dump, ...newStack } = state.stack;
     return {
       ...state,
       visible: false,
-      stack: newStack,
     };
   }
   return state;
