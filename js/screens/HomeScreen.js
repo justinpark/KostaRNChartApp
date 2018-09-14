@@ -16,6 +16,7 @@ class HomeScreen extends PureComponent {
       active: 'today',
     };
   }
+
   render() {
     const { navigation } = this.props;
     return (

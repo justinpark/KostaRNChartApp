@@ -7,29 +7,10 @@ import Text from './Text';
 import ThemedStyleSheet from '../ThemedStyleSheet';
 
 class Toast extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      visible: props.visible,
-    };
-    this.hide = this.hide.bind(this);
-  }
-
-  componentDidUpdate({ visible: newVisible }) {
-    if (this.props.visible !== newVisible) {
-      this.setState({ visible: true });
-      this._tid = setTimeout(this.hide, 1000);
-    }
-  }
-
-  hide() {
-    this.setState({ visible: false });
-  }
   render() {
-    const { message } = this.props;
-    const { visible } = this.state;
+    const { visible, message } = this.props;
     return (
-      <View style={{...styles.container, ...(!visible && styles.hide)}}>
+      <View style={[styles.container, !visible && styles.hide]}>
         <View style={styles.toast}>
           <Card>
             <View style={styles.padder}>
