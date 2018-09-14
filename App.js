@@ -7,7 +7,9 @@ import { Provider } from 'react-redux';
 
 import createStore from './js/configureStore';
 import ViewContainer from './js/components/ViewContainer';
-import AppMain from './js/AppMain';
+import Entry from './js/Entry';
+
+import NavigationService from './js/NavigationService';
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +21,11 @@ class App extends Component {
     return (
       <Provider store={this.store}>
         <ViewContainer>
-          <AppMain />
+          <Entry
+            ref={navigatorRef => {
+              NavigationService.setTopLevelNavigator(navigatorRef);
+            }}
+          />
         </ViewContainer>
       </Provider>
     );

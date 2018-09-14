@@ -25,14 +25,17 @@ class BuyCoinScreen extends PureComponent {
   }
 
   handleSubmit({ price }) {
-    const { updatePrice } = this.props;
-    updatePrice(1, price);
+    const { coin, updatePrice } = this.props;
+    // TODO: 아래를 실행하면 로그인 창으로 갑니다.
+    // updatePrice('BTX', price);
+    updatePrice(coin.id, price);
   }
 
   render() {
+    const { coin } = this.props;
     return (
       <Form
-        value={{ price: '10', amount: '1' }}
+        value={{ price: `${coin.currentValue}`, amount: '1' }}
         onSubmit={this.handleSubmit}
         validate={this.coinValidate}
       >

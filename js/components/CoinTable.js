@@ -20,7 +20,7 @@ class CoinTable extends PureComponent {
                   primaryText: name,
                   secondaryText: `${totalValue}| 현재 가격: ${currentValue}`,
                 }}
-                rightElement={<Button primary raised text="구매" onPress={() => navigation.navigate('BuyModal')} />}
+                rightElement={<Button primary raised text="구매" onPress={() => navigation.navigate('BuyModal', { id })} />}
               />
             ))}
             <Button primary raised onPress={() => fetchCoins()} text="코인가져오기"/>
