@@ -12,7 +12,7 @@ export default (...reducerNames) => {
     ...apiReducers,
     [name]: (state = { loadingEntities: {} }, action) => {
       const { type, payload, meta } = action;
-      const { resourceName, key = 'id' } = meta || {};
+      const { resourceName, id: entityId, key = 'id' } = meta || {};
 
       if (resourceName !== name) {
         return state;
@@ -57,7 +57,7 @@ export default (...reducerNames) => {
               ...prevState,
               loadingEntities: {
                 ...prevState.loadingEntities,
-                [entity[key]]: false,
+                [entityId]: false,
               },
             }),
           });

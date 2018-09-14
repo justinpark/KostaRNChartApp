@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import CoinTable from '../components/CoinTable';
 import { fetchTransactions } from '../actions/transactionActions';
-import { fetchAll as fetchCoinAll } from '../actions/coinActions';
+import { fetchCoins as fetchCoinAll } from '../actions/coinActions';
 import { coinsSelector } from '../selectors/coinSelectors';
 
 const mapStateToProps = (store) => {

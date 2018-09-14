@@ -9,8 +9,13 @@ import Form, { FormConsumer } from '../components/FormProvider';
 import InputField from '../components/InputField';
 import Field from '../components/Field';
 import FormSubmit from '../components/FormSubmit';
+import Toast from '../containers/ToastContainer';
 
 class BuyCoinScreen extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
   coinValidate(value, allValues) {
     let errors = {};
     if(Number(value['price']) < 0) {
@@ -18,11 +23,17 @@ class BuyCoinScreen extends PureComponent {
     }
     return errors;
   }
+
+  handleSubmit({ price }) {
+    const { updatePrice } = this.props;
+    updatePrice(1, price);
+  }
+
   render() {
     return (
       <Form
         value={{ price: '10', amount: '1' }}
-        onSubmit={(value) => console.log(value)}
+        onSubmit={this.handleSubmit}
         validate={this.coinValidate}
       >
         <ViewContainer>
@@ -40,6 +51,7 @@ class BuyCoinScreen extends PureComponent {
             component={InputField}
           />
           <FormSubmit raised text="구매" />
+          <Toast />
         </ViewContainer>
       </Form>
     );

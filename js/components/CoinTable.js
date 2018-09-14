@@ -12,13 +12,13 @@ class CoinTable extends PureComponent {
       <NavigationConsumer>
         {(navigation) => (
           <View>
-            {coins.map(({ name, id, code, totalValue }) => (
+            {coins.map(({ name, id, code, totalValue, currentValue }) => (
               <ListItem
                 key={`coins_${id}`}
                 leftElement={<Avatar text={code} />}
                 centerElement={{
                   primaryText: name,
-                  secondaryText: `${totalValue}`,
+                  secondaryText: `${totalValue}| 현재 가격: ${currentValue}`,
                 }}
                 rightElement={<Button primary raised text="구매" onPress={() => navigation.navigate('BuyModal')} />}
               />

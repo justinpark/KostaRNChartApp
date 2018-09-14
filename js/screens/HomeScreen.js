@@ -7,6 +7,7 @@ import CoinTableContainer from '../containers/CoinTableContainer';
 import NavigationProvider from '../NavigationProvider';
 import Text from '../components/Text';
 import ViewContainer from '../components/ViewContainer';
+import Toast from '../containers/ToastContainer';
 
 class HomeScreen extends PureComponent {
   constructor(props) {
@@ -23,11 +24,7 @@ class HomeScreen extends PureComponent {
           <ViewContainer>
             <Subheader text="코인 시세" />
             <CoinTableContainer />
-            <View style={{ position: 'absolute', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-              <Card>
-                <Text>성공했습니다</Text>
-              </Card>
-            </View>
+            <Toast />
           </ViewContainer>
           <BottomNavigation active={this.state.active} hidden={false} >
             <BottomNavigation.Action

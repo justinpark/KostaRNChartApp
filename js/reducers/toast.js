@@ -16,6 +16,12 @@ export default function(state = initialState, action) {
         success: true,
         message: toast.onSuccess,
       }),
+      failure: prevState => ({
+        ...prevState,
+        visible: true,
+        success: false,
+        message: toast.onError,
+      }),
     });
   }
   return state;

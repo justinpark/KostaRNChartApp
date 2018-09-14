@@ -51,6 +51,7 @@ export default (resourceName, key = 'id') => ({
     promise: Api.put(`${resourceName}/${id}`, params.data),
     meta: {
       ...params.meta,
+      id,
       key,
       resourceName,
     },
