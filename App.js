@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import { Platform, StyleSheet } from 'react-native';
+import { Platform, StyleSheet, View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import { BottomNavigation, ListItem, Subheader, Button, Avatar } from 'react-native-material-ui';
+import { BottomNavigation, Card } from 'react-native-material-ui';
 import {
   LineChart,
 } from 'react-native-chart-kit'
@@ -48,6 +48,11 @@ class App extends Component {
         <NavigationProvider navigation={navigation}>
           <ViewContainer>
             <HomeScreen />
+            <View style={{ position: 'absolute', flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+              <Card>
+                <Text>성공했습니다</Text>
+              </Card>
+              </View>
             <BottomNavigation active={this.state.active} hidden={false} >
               <BottomNavigation.Action
                 key="today"

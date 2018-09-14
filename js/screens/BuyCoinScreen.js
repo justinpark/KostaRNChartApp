@@ -5,40 +5,43 @@ import PropTypes from 'prop-types';
 import { Subheader, Button } from 'react-native-material-ui';
 
 import ViewContainer from '../components/ViewContainer';
-import FormProvider, { FormConsumer } from '../components/FormProvider';
+import Form, { FormConsumer } from '../components/FormProvider';
 import InputField from '../components/InputField';
+import Field from '../components/Field';
+import FormSubmit from '../components/FormSubmit';
 
 class BuyCoinScreen extends PureComponent {
+  coinValidate(value, allValues) {
+    let errors = {};
+    if(Number(value['price']) < 0) {
+      errors['price'] = '값이 잘못되었습니다.';
+    }
+    return errors;
+  }
   render() {
     return (
-      <FormProvider value={{ price: '10', amount: '1' }}>
+      <Form
+        value={{ price: '10', amount: '1' }}
+        onSubmit={(value) => console.log(value)}
+        validate={this.coinValidate}
+      >
         <ViewContainer>
           <Subheader>
             구매화면
           </Subheader>
-          <FormConsumer>
-            {({ value, onChange }) => (
-              <InputField
-                label={'가격'}
-                name="price"
-                value={value.price}
-                onChange={onChange}
-              />
-            )}
-          </FormConsumer>
-          <FormConsumer>
-            {({ value, onChange }) => (
-              <InputField
-                label={'수량'}
-                name="amount"
-                value={value.amount}
-                onChange={onChange}
-              />
-            )}
-          </FormConsumer>
-          <Button raised text="구매" />
+          <Field
+            label="가격"
+            name="price"
+            component={InputField}
+          />
+          <Field
+            label="수량"
+            name="amount"
+            component={InputField}
+          />
+          <FormSubmit raised text="구매" />
         </ViewContainer>
-      </FormProvider>
+      </Form>
     );
   }
 }
